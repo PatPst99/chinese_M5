@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FAF6F0;
+  --color-paper-warm: #F4ECE1;
+  --color-jade: #88B3A2;
+  --color-jade-dark: #5F8D7B;
+  --color-jade-soft: #E5F0EB;
+  --color-peach: #F2B8B5;
+  --color-peach-soft: #FDECEB;
+  --color-vermilion: #D9776C;
+  --color-vermilion-soft: #FBE9E7;
+  --color-lantern: #F4D58D;
+  --color-lantern-soft: #FDF6E2;
+  --color-indigo-pastel: #9BA8C7;
+  --color-indigo-soft: #EBEEF6;
+  --color-ink: #2F3640;
+  --color-ink-muted: #636E72;
+
+  --font-thai: 'IBM Plex Sans Thai', 'Noto Sans', sans-serif;
+  --font-chinese: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
+  --font-display-cn: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --font-pinyin: 'Noto Sans', 'IBM Plex Sans Thai', sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  background-color: #FAF6F0;
+  color: #2F3640;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-thai);
+  background-color: #FAF6F0;
+  color: #2F3640;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle handmade xuan-paper / mulberry paper texture */
+.paper-texture {
+  background-color: #FAF6F0;
+  background-image:
+    radial-gradient(rgba(136, 179, 162, 0.08) 1px, transparent 0),
+    radial-gradient(rgba(217, 119, 108, 0.06) 1px, transparent 0),
+    linear-gradient(180deg, rgba(250, 246, 240, 0.94) 0%, rgba(244, 236, 225, 0.65) 100%);
+  background-size: 28px 28px, 42px 42px, 100% 100%;
+  background-position: 0 0, 14px 14px, 0 0;
+}
+
+.font-cn {
+  font-family: var(--font-chinese);
+}
+
+.font-cn-display {
+  font-family: var(--font-display-cn);
+}
+
+.font-pinyin {
+  font-family: var(--font-pinyin);
+}
+
+@layer components {
+  /* Glassmorphism Neo-Chinese card */
+  .neo-card {
+    background: rgba(255, 253, 250, 0.84);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(136, 179, 162, 0.28);
+    box-shadow:
+      0 8px 28px -8px rgba(47, 54, 64, 0.07),
+      0 2px 6px rgba(136, 179, 162, 0.08);
+  }
+
+  /* Minimalist Chinese Lattice corner accents */
+  .lattice-frame {
+    position: relative;
+  }
+  .lattice-frame::before,
+  .lattice-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    border-color: rgba(136, 179, 162, 0.55);
+    border-style: solid;
+  }
+  .lattice-frame::before {
+    top: 8px;
+    left: 8px;
+    border-width: 2px 0 0 2px;
+    border-top-left-radius: 4px;
+  }
+  .lattice-frame::after {
+    bottom: 8px;
+    right: 8px;
+    border-width: 0 2px 2px 0;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+/* Mi-zi-ge 米字格 grid background for Hanzi Writer */
+.mizige-grid {
+  background-color: #FFFDF9;
+  background-image:
+    linear-gradient(to right, transparent calc(50% - 0.5px), rgba(217, 119, 108, 0.35) calc(50% - 0.5px), rgba(217, 119, 108, 0.35) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), rgba(217, 119, 108, 0.35) calc(50% - 0.5px), rgba(217, 119, 108, 0.35) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(45deg, transparent calc(50% - 0.5px), rgba(217, 119, 108, 0.2) calc(50% - 0.5px), rgba(217, 119, 108, 0.2) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(-45deg, transparent calc(50% - 0.5px), rgba(217, 119, 108, 0.2) calc(50% - 0.5px), rgba(217, 119, 108, 0.2) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+}
+
+/* 3D Flashcard utilities */
+.perspective-1200 {
+  perspective: 1200px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Petal falling animation */
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.72;
+  }
+  90% {
+    opacity: 0.58;
+  }
+  100% {
+    transform: translate3d(12vw, 108vh, 0) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+@keyframes cloudDrift {
+  0% {
+    transform: translateX(-12%);
+  }
+  50% {
+    transform: translateX(8%);
+  }
+  100% {
+    transform: translateX(-12%);
+  }
+}
+
+.animate-petal {
+  animation-name: petalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animate-cloud {
+  animation-name: cloudDrift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Subtle custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(244, 236, 225, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 179, 162, 0.55);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(95, 141, 123, 0.75);
+}
